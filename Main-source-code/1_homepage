@@ -1,0 +1,56 @@
+package buspro; 
+import javax.swing.*; 
+import java.awt.Color; 
+import java.awt.Container; 
+import java.awt.Dimension; 
+import java.awt.Font; 
+import java.awt.event.ActionEvent; 
+import java.awt.event.ActionListener; 
+import java.sql.*; 
+public class frontpage { 
+JFrame f; 
+JLabel l1; 
+JButton b1; 
+JButton b2; 
+frontpage(){ 
+f=new JFrame("home page"); 
+l1=new JLabel("BUS TICKET RESERVATION SYSTEM"); 
+b1=new JButton("Sign Up"); 
+b2=new JButton("Login"); 
+Color color=new Color(69, 100, 109); 
+f.getContentPane().setBackground(color.darker()); 
+l1.setBounds(48,38,500,80); 
+l1.setForeground(Color.WHITE); 
+l1.setFont(new Font("Times new roman", Font.BOLD,26)); 
+b1.setBounds(35,182,200,30); 
+b1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+b1.setText("Sign Up"); 
+b1.addActionListener(new ActionListener() { 
+public void actionPerformed(ActionEvent e) { 
+registrationportal rg=new registrationportal(); 
+}}); 
+b2.setBounds(315, 182,200,30); 
+b2.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+b2.setText("Login"); 
+b2.addActionListener(new ActionListener() { 
+public void actionPerformed(ActionEvent e) { 
+Loginpage p=new Loginpage(); 
+}}); 
+f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+f.setBounds(100, 200, 350, 300); 
+Container c = f.getContentPane(); 
+JLabel label = new JLabel(); 
+label.setIcon(new ImageIcon("bus1.jpg")); 
+Dimension size = label.getPreferredSize(); 
+label.setBounds(2, 200, size.width, size.height);   
+c.add(label); 
+f.add(l1);
+f.add(b1); 
+f.add(b2); 
+f.setSize(560,550); 
+f.setLayout(null); 
+f.setVisible(true); 
+} 
+public static void main(String args[]) { 
+new frontpage(); 
+}} 
