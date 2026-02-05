@@ -1,0 +1,102 @@
+package buspro; 
+import java.awt.Font; 
+import java.awt.Event.*; 
+import java.awt.event.ActionEvent; 
+import java.awt.event.ActionListener; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.PreparedStatement; 
+import java.sql.ResultSet; 
+import java.sql.SQLException; 
+import java.sql.Statement; 
+import javax.swing.*;
+public class Loginpage{ 
+JButton b1,b2,b3; 
+Loginpage(){ 
+JFrame f=new JFrame("Login Portal"); 
+JLabel l1,l2,l3; 
+JTextField t1; 
+JPasswordField p1; 
+JSeparator s1,s2; 
+l1=new JLabel("Username"); 
+l2=new JLabel("Password"); 
+l3=new JLabel("Login Page"); 
+t1=new JTextField(20); 
+p1=new JPasswordField(); 
+b1=new JButton("Login"); 
+b1.addActionListener(new ActionListener() { 
+public void actionPerformed(ActionEvent e) { 
+try { 
+String Username=t1.getText(); 
+String Password=p1.getText(); 
+Connection 
+conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/brs","root","");
+PreparedStatement  stmt=conn.prepareStatement("select * from booking where 
+username = ? and password = ? "); 
+stmt.setString(1, Username); 
+stmt.setString(2, Password); 
+ResultSet rs = stmt.executeQuery(); 
+System.out.println(Username); 
+System.out.println(Password); 
+if(rs.next()) { 
+System.out.println(rs.getString("Username")); 
+System.out.println(" login success"); 
+JOptionPane.showMessageDialog(f,"Login successful"); 
+Booking bk= new Booking(); 
+bk.setVisible(true); 
+} 
+else { 
+JOptionPane.showMessageDialog(f,"Invalid Login!"); 
+}} 
+catch(SQLException ex) { 
+System.out.println(e); 
+}}}); 
+b2=new Buttons("Reset"); 
+b2.addActionListener(new ActionListener() { 
+public void actionPerformed(ActionEvent e) { 
+JOptionPane.showMessageDialog(f,"Do you want to clear details?"); 
+t1.setText(""); 
+p1.setText(""); 
+System.out.println("Reset success"); 
+}}); 
+b3=new JButton("Exit"); 
+b3.addActionListener(new ActionListener() { 
+public void actionPerformed(ActionEvent e) { 
+System.out.println("exit finished"); 
+System.exit(0); 
+}}); 
+s1=new JSeparator(); 
+s2=new JSeparator(); 
+l1.setBounds(146,133,106,28); 
+l1.setFont(new Font("Tahoma", Font.PLAIN,18)); 
+l2.setBounds (146,257,106, 28); 
+l2.setFont (new Font ("Tahoma", Font.PLAIN,18)); 
+l3.setBounds (300,33,337,27); 
+l3.setFont(new Font("Tahoma", Font.BOLD,24)); 
+t1.setBounds(273,137,135,29); 
+p1.setBounds(273,261,135,29); 
+b1.setBounds(127,418,135,37); 
+b1.setFont(new Font("Tahoma", Font.PLAIN,18)); 
+b2.setBounds(370,418,119,37); 
+b2.setFont(new Font("Tahoma", Font.PLAIN,18)); 
+b3.setBounds(633,418,93,37); 
+b3.setFont(new Font("Tahoma", Font.PLAIN,18)); 
+s1.setBounds(135,356,597,2); 
+s2.setBounds(127,87,605,2); 
+f.add(l1); 
+f.add(l2); 
+f.add(l3); 
+f.add(t1); 
+f.add(p1); 
+f.add(b1); 
+f.add(b2); 
+f.add(b3); 
+f.add(s1); 
+f.add(s2); 
+f.setLayout(null); 
+f.setSize(800,650); 
+f.setVisible(true); 
+} 
+public static void main(String args[]) { 
+new Loginpage(); 
+}} 
